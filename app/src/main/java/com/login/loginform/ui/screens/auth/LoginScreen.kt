@@ -1,6 +1,7 @@
 package com.login.loginform.ui.screens.auth
 
 import android.util.Log
+import androidx.annotation.RestrictTo
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,8 +35,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.login.loginform.R
+import com.login.loginform.data.model.LoginRequest
+import com.login.loginform.data.remote.RetrofitClient
 import com.login.loginform.ui.screens.components.CustomButton
 import com.login.loginform.ui.theme.LoginFormTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(navController: NavController){
@@ -44,6 +49,10 @@ fun LoginScreen(navController: NavController){
     var password by remember {
         mutableStateOf("")
     }
+    var isloading by remember {
+        mutableStateOf(false)
+    }
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -70,7 +79,18 @@ fun LoginScreen(navController: NavController){
         Spacer(modifier = Modifier.size(4.dp))
         CustomButton(title = "Login", onClick = {
             Log.i("Login Click", "Email is $email")
-            navController.navigate("home")
+            coroutineScope.launch {
+                isloading  = true
+                //val response = RetrofitClient.authService.login(LoginRequest(email, password))
+                isloading = false
+//                if (response.success) {
+                if (!isloading) {
+                    navController.navigate("home")
+                }else {
+                    Log.e("Error", "Login Failed")
+                }
+            }
+            //navController.navigate("home")
         })
         Spacer(modifier = Modifier.size(4.dp))
         TextButton(onClick = { /*TODO*/ }) {
