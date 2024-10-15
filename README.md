@@ -11,6 +11,7 @@ The `com.login.loginform.ui.screens.auth` package provides a simple login UI bui
 - **Forgot Password**: Text button to navigate users to the forgot password flow.
 - **Social Media Login**: Buttons for logging in with Facebook, Google, or Twitter.
 - **Compose Preview**: UI preview using Jetpack Compose's `@Preview` annotation.
+- **Screenshots**: Shows example images of the UI.
 
 ## Installation
 
