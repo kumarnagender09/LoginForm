@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.login.loginform.navigation.AppNavGraph
 import com.login.loginform.ui.screens.auth.LoginScreen
 import com.login.loginform.ui.theme.LoginFormTheme
 
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LoginFormTheme {
-                LoginScreen()
+                AppNavGraph()
             }
         }
     }

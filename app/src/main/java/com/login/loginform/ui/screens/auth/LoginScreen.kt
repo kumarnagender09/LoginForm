@@ -30,12 +30,14 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.login.loginform.R
 import com.login.loginform.ui.screens.components.CustomButton
 import com.login.loginform.ui.theme.LoginFormTheme
 
 @Composable
-fun LoginScreen(){
+fun LoginScreen(navController: NavController){
     var email by remember {
         mutableStateOf("")
     }
@@ -68,13 +70,16 @@ fun LoginScreen(){
         Spacer(modifier = Modifier.size(4.dp))
         CustomButton(title = "Login", onClick = {
             Log.i("Login Click", "Email is $email")
+            navController.navigate("home")
         })
         Spacer(modifier = Modifier.size(4.dp))
         TextButton(onClick = { /*TODO*/ }) {
             Text(text = "Forgot Password")
         }
         Row(
-            modifier = Modifier.fillMaxWidth().padding(10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             CustomButton(title = "FaceBook", onClick = {
@@ -95,6 +100,7 @@ fun LoginScreen(){
 @Composable
 fun LoginScreenPreview() {
     LoginFormTheme {
-       LoginScreen()
+        var navController = rememberNavController()
+       LoginScreen(navController)
     }
 }
